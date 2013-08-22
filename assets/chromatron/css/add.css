@@ -1,0 +1,19 @@
+.list-close{
+	background:url(../images/details_close.png);
+	width:20px;
+	height:20px;
+	cursor:pointer;
+	display:inline-block;
+
+}
+
+tr{
+	cursor:pointer;
+}
+
+#grid_name {
+	font-family:tahoma;
+	font-size:10pt;
+
+
+}
