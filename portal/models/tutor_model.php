@@ -322,7 +322,7 @@ class tutor_model extends CI_Model {
 	function get_active_tutor(){
 		$this->db->from('staff');
 		$this->db->join('major','staff.major_id = major.major_id');
-		$this->db->where('staff.status','Aktif');
+		$this->db->where('staff.is_active',1);
 		return $this->db->get();
 	}
 	

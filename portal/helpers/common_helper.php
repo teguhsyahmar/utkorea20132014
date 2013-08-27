@@ -22,16 +22,17 @@ function assets_path() {
     return base_url()."assets/";
 }
 
-function menu($role,$onlyActiveMenu=1) {
+function menu($role) {
 	$ci =& get_instance();
 	//$ci->db->like('permission',$role);
     
     $i = 1;
     $where_param = "(";
     foreach ($role as $val) {
-        $where_param .= "`permission` LIKE '%[".$val."%' OR `permission` LIKE '%,".$val."%'";
+        //$where_param .= "`permission` LIKE '%".$val."%'"; //2013-08-04|kurnianggoro|this line is buggy if permission more than 9:: 
+        $where_param .= "`permission` LIKE '%[".$val.",%' OR `permission` LIKE '%,".$val.",%' OR `permission` LIKE '%,".$val."]%'  OR `permission`='[".$val."]'";
         
-        if ($i != count($role)) {
+		if ($i != count($role)) {
             $where_param .= " OR  ";
         }
         
@@ -41,7 +42,7 @@ function menu($role,$onlyActiveMenu=1) {
     $where_param .= ")";
     $ci->db->WHERE($where_param);
 	$ci->db->WHERE('parent','0');
-    if($onlyActiveMenu)$ci->db->WHERE('menu','1');
+    $ci->db->WHERE('menu','1');
 	$query = $ci->db->get('permissions');
 	//echo $this->db->last_query();
     
@@ -51,13 +52,11 @@ function menu($role,$onlyActiveMenu=1) {
 		foreach ($query->result() as $row) {
 			$menu[$i]['page'] = $row->page;
 			$menu[$i]['icons'] = $row->icons;
-			$menu[$i]['active'] = $row->menu;
-			$menu[$i]['id'] = $row->id;
 			
 			$j = 1;
             $where_param_child = "(";            
             foreach ($role as $val) {
-                $where_param_child .= "`permission` LIKE '%[".$val."%' OR `permission` LIKE '%,".$val."%'";
+                $where_param_child .= "`permission` LIKE '%".$val."%'";
                 
                 if ($j != count($role)) {
                     $where_param_child .= " OR  ";
@@ -70,14 +69,14 @@ function menu($role,$onlyActiveMenu=1) {
             
             $ci->db->WHERE($where_param_child);    
 			$ci->db->WHERE('parent',$row->id);
-            if($onlyActiveMenu)$ci->db->WHERE('menu','1');
+            $ci->db->WHERE('menu','1');
 			$query2 = $ci->db->get('permissions');
 			
 			if ($query2->num_rows() > 0) {
 				$j = 0;
 				
 				foreach ($query2->result() as $row2) {
-					$child = array('page'=>$row2->page,'url'=>$row2->url,'active'=>$row2->menu,'id'=>$row2->id);
+					$child = array('page'=>$row2->page,'url'=>$row2->url);
 					$menu[$i]['child'][$j] = $child; 
 					$j++;
 				}
@@ -326,7 +325,7 @@ function convertHumanDate($date,$display_time = true) {
 			$show_date = $date[2]." ".$month[$month_idx]." ".$date[0];  
 		
 			if ((count($check) == '2') && ($display_time)) {
-				return $show_date. "  ".$check[1];
+				return $show_date. "  ".$check[1]; 
 			} else {
 				return $show_date;
 			}	

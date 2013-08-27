@@ -27,7 +27,14 @@
 		<!--<a href="index.html" title="Back to Homepage"></a>-->
 		<h1 style='font-size: 1.6em;text-align: center;color: #FFFFFF;'>
 			Portal Akademik <br />Universitas Terbuka Korea Selatan
-		</h1>	    
+		</h1>
+        
+        <p style='font-size: 1em;text-align: center;color: #FFFFFF;padding-top:10px'>
+        Untuk Mahasiswa Semester 1 Gunakan NIM anda untuk login (bukan No Pendaftaran), dengan menghilangkan 0 di depan.
+        Misal NIM 017500000, Usernamenya adalah 17500000. Untuk password, masih sama dengan yang sebelumnya.
+        
+        Bila ada kesulitan untuk login, silahkan post di Facebook UT Korea 
+        </p> 
         <!-- Login box -->
 		<article id="login-box">
 			<form action="main/ajax_login" id="frmLogin">

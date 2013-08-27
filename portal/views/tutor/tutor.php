@@ -15,7 +15,7 @@
 						  echo site_url( "humas/getlistJQGRID/tutor" );
 						  ?>',
 					datatype: "json",
-					colNames:['Nama', 'Major','Region','Phone','Email','Affiliation','Birth','Key'],	
+					colNames:['Nama', 'Major','Region','Phone','Email','Affiliation','Birth','Status','Key'],	
 					colModel:[						
 						{name:'name',width:600,index:'name',editable:true,editrules:{required:true}},
 						{name:'major_id',width:600,index:'major_id', stype:'select',searchoptions:{value:{<?php $first=true;foreach($major_arr as $row){if(!$first){echo ',';}echo $row['major_id'].':"'.$row['major'].'"';$first=false;} ?>}},editable:true, edittype:'select',formatter:'select',editoptions:{value:{<?php $first=true;foreach($major_arr as $row){if(!$first){echo ',';}echo $row['major_id'].':"'.$row['major'].'"';$first=false;} ?>}}},	
@@ -23,7 +23,8 @@
 						{name:'phone',index:'phone',hidden:true,editable:true,editrules:{edithidden:true,required:true,number:true}},									
 						{name:'email',width:700,index:'email',hidden:true,editable:true,editrules:{edithidden:true,requried:true,email:true}},
 						{name:'affiliation',index:'period',align:'center',editable:true,hidden:true,editrules:{edithidden:true,required:true}},
-						{name:'birth',index:'birth',hidden:true,editable:true,editrules:{edithidden:true}},												
+						{name:'birth',index:'birth',hidden:true,editable:true,editrules:{edithidden:true}},	
+						{name:'is_active',index:'is_active',editable:true,stype:'select',searchoptions:{value:{'1':'Aktif','0':'Tidak Aktif'}}, edittype:'select',formatter:'select',editoptions:{value:{'1':'Aktif','0':'Tidak Aktif'}}},
 						{name:'staff_id',index:'staff_id',hidden:true,editable:true}
 					],
 					mtype : "POST",		
@@ -35,7 +36,7 @@
 					height: "100%",					
 					viewrecords: true,					
 					sortorder: "ASC",					
-					jsonReader: { repeatitems : false, id: "7"}
+					jsonReader: { repeatitems : false, id: "8"}
 				}).navGrid('#pager2',{edit:true,add:true,del:true, search: true},{
 					resize:false,					
 					afterComplete: function(data){						

@@ -74,6 +74,7 @@ class person_model extends CI_Model {
 			$this->db->where_in('staff_id',$where);
 		}
 		$this->db->where("phone IS NOT ", "NULL",false); 
+		$this->db->where("is_active ", 1,false); 
 		$query = $this->db->get('staff');
 		
 		if($query->num_rows() > 0) {
@@ -126,14 +127,15 @@ class person_model extends CI_Model {
             $this->db->from("mahasiswa_baru");			
 		}elseif($type=='tutor'){
 			if($is_export){
-				$this->db->select("staff_id,name,phone,email,affiliation,region,major.major as major,birth");
+				$this->db->select("staff_id,name,phone,email,affiliation,region,major.major as major,birth,is_active");
 				$this->db->from("staff");
 				$this->db->join('major','staff.major_id = major.major_id');
 				$this->db->where("staff.major_id IS NOT ","NULL",false);
 			}else{
-				$this->db->select("name,phone,email,affiliation,region,major_id,birth,staff_id");
-				$this->db->from("staff");
-				$this->db->where("major_id IS NOT ","NULL",false);
+				$this->db->select("name,phone,email,affiliation,region,a.major_id as major_id,birth,staff_id,is_active");
+				$this->db->from("staff a");
+				$this->db->join('major b','a.major_id = b.major_id');
+				$this->db->where("a.major_id IS NOT ","NULL",false);
 			}
 			
 		}else{
@@ -311,7 +313,13 @@ class person_model extends CI_Model {
 	
 	function add_tutor($col)
 	{
-		return $this->db->insert('staff',$col);
+		$colnew = $col;
+		
+		$colnew['username'] = substr(str_replace(" ","",$col['name']),0,6);
+		$colnew['password'] = hashPassword($colnew['username']);
+		$colnew['group_id'] = 8;
+		
+		return $this->db->insert('staff',$colnew);
 	}
 	
 	function check_null_field($id,$table = 'mahasiswa') {
