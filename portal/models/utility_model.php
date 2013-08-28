@@ -33,5 +33,11 @@ class utility_model extends CI_Model {
 		
 	}	
 	
-
+	function update_menu_status($id,$status){
+		$this->db->where('id',$id);
+		$this->db->update('permissions',array('menu' => $status));
+		$this->db->select('menu');
+		$this->db->where('id',$id);
+		return $this->db->get('permissions')->row()->menu;		
+	}
 }

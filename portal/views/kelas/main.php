@@ -21,7 +21,7 @@
 		<?php if($file){ 
 			$totalc = (count($file)>1)?' '.count($file):'';
 			?>
-			//getdocscribd(<?php echo $file['result'.$totalc]['doc_id']; ?>, '<?php echo $file['result'.$totalc]['access_key']; ?>' );
+			getdocscribd(<?php echo $file['result'.$totalc]['doc_id']; ?>, '<?php echo $file['result'.$totalc]['access_key']; ?>' );
 		<?php }else{
 			echo '$("#embedded_presentation").html("Scribd Service Currently not available");';
 		} ?> 
@@ -53,7 +53,7 @@
 		<?php if($file){ 
 			$totalc = (count($file)>1)?' '.count($file):'';
 			?>
-			//getdocscribd(<?php echo $file['result'.$totalc]['doc_id']; ?>, '<?php echo $file['result'.$totalc]['access_key']; ?>' );
+			getdocscribd(<?php echo $file['result'.$totalc]['doc_id']; ?>, '<?php echo $file['result'.$totalc]['access_key']; ?>' );
 		<?php }else{
 			echo '$("#embedded_presentation").html("Scribd Service Currently not available");';
 		} ?> 
@@ -73,7 +73,7 @@
 		<?php if($file){ 
 			$totalc = (count($file)>1)?' '.count($file):'';
 			?>
-			//getdocscribd(<?php echo $file['result'.$totalc]['doc_id']; ?>, '<?php echo $file['result'.$totalc]['access_key']; ?>' );
+			getdocscribd(<?php echo $file['result'.$totalc]['doc_id']; ?>, '<?php echo $file['result'.$totalc]['access_key']; ?>' );
 		<?php }else{
 			echo '$("#embedded_presentation").html("Scribd Service Currently not available");';
 		} ?> 
@@ -259,7 +259,7 @@
    
     <?php } ?>
     </div>
-    <div style="width: 48%;float:left;margin-left:10px;display:none">
+    <div style="width: 48%;float:left;margin-left:10px;">
         <article class="quarter-block nested clearrm classli" style="margin:4px;width:100%;">
         	<header>
         		<h2>Materi Kuliah</h2>
@@ -330,10 +330,10 @@
 		$(".docarsip").live('click',function(){
 			var doc_id = $(this).attr("alt");
 			var access_key = $(this).find(":hidden").val();
-			//getdocscribd(doc_id,access_key);
+			getdocscribd(doc_id,access_key);
 			window.open("<?php echo site_url("kelas/scribd_docview"); ?>/" + doc_id + "/" + access_key + "/<?php echo $class_settings->id; ?>",'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=508,height=538')
 		});
-		//loadList(curid);
+		loadList(curid);
 		
 		<?php if(!is_numeric($this->session->userdata('username'))){ ?>
 		$('.fileupload').remove();

@@ -150,10 +150,16 @@ class tutor_model extends CI_Model {
 		
 	}
 
-	function get_class_by_tutor($staff_id){
+	function get_class_by_tutor($staff_id,$current_period = true){
+		$thisperiod = get_settings('time_period');
+		$this->db->flush_cache();
+		
 		$this->db->from('assignment a');
 		$this->db->join('courses b','a.course_id = b.course_id');
 		$this->db->where('a.staff_id',$staff_id);
+		if($current_period){			
+			$this->db->where('a.time_period',$thisperiod);
+		}
 		$res = $this->db->get();
         if($res->num_rows() > 0){
 			return $res;

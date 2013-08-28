@@ -204,12 +204,12 @@ class scribd {
 		$post_params['api_sig'] = $this->generate_sig($params, $secret);
 		$request_url = $this->url;
        
-		/*$ch = curl_init();
+		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $request_url );       
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
 		curl_setopt($ch, CURLOPT_POST, 1 );
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $post_params );
-		$xml = curl_exec( $ch );*/
+		$xml = curl_exec( $ch );
 		
 		/*$this->CI->load->library('httpclientclass',array('host'=>'api.scribd.com','port'=>80));
 		if($this->CI->httpclientclass->post('/api?api_key='.$this->api_key,$post_params)){
@@ -217,9 +217,9 @@ class scribd {
 		}else{
 			throw new Exception($this->CI->httpclientclass->getError(),'200');
 		}
-		//$xml = $this->CI->httpclientclass->getContent();*/
+		$xml = $this->CI->httpclientclass->getContent();*/
 		
-		if($post_params['method']=='docs.upload'){
+		/*if($post_params['method']=='docs.upload'){
 			define('MULTIPART_BOUNDARY', '--------------------------'.microtime(true));
 			$header = 'Content-Type: multipart/form-data; boundary='.MULTIPART_BOUNDARY;
 			
@@ -261,11 +261,11 @@ class scribd {
 			//echo $filereq;
 			$xml = file_get_contents($filereq);
 			//echo $xml;
-		}
+		}*/
 		
 		
 		$result = simplexml_load_string($xml); 
-		//curl_close($ch);
+		curl_close($ch);
 
 			if($result['stat'] == 'fail'){
 		
