@@ -57,14 +57,8 @@
 		<?php }else{
 			echo '$("#embedded_presentation").html("Scribd Service Currently not available");';
 		} ?> 
-		$.ajax({
-			type: "POST",	
-			url: "http://api.justin.tv/api/channel/show/<?php echo $class_settings->justinch; ?>.json",				
-			dataType: "jsonp",
-			success: function(data){
-				$("#video").append(data.embed_code);					
-			}	
-		});		
+		$.getJSON("http://api.justin.tv/api/channel/show/<?php echo $class_settings->justinch; ?>.json?jsonp=?", function(data){$("#video").append(data.embed_code);});
+			
 	});
 </script>	
 <?php }else if($class_settings->chopt=='bambuser'){ ?>	
@@ -94,6 +88,7 @@
     
 <div style="height:auto;width:100%;position: inherit;">
     <div id="video" style="width:48%;float:left"></div>
+    <div style="clear:both;"></div>
     <div id="chat" style="width:48%;;float:left;padding-left:10px">
     	<?php if($class_settings->chatango!=''){ ?>
 			<script id="sid0010000022419121432">

@@ -28,6 +28,8 @@ function menu($role,$onlyActiveMenu=1) {
     
     $i = 1;
     $where_param = "(";
+	$is_super = false;
+	
     foreach ($role as $val) {
         $where_param .= "`permission` LIKE '%[".$val."%' OR `permission` LIKE '%,".$val."%'";
         
@@ -36,9 +38,18 @@ function menu($role,$onlyActiveMenu=1) {
         }
         
         $i++;
+		
+		if($val==99){
+			$is_super = true;
+		}
     }
     
     $where_param .= ")";
+	
+	if(!$is_super){
+		$where_param .= 'AND `permission` != \'[99]\' ';
+	}
+	
     $ci->db->WHERE($where_param);
 	$ci->db->WHERE('parent','0');
     if($onlyActiveMenu)$ci->db->WHERE('menu','1');
