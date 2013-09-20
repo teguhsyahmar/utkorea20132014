@@ -227,7 +227,7 @@ class tutor_model extends CI_Model {
 		
 		$this->db->where('b.staff_id',$staff_id);
 		
-		$this->db->order_by('a.id_assignment','asc');
+		$this->db->order_by('a.id_assignment, m.name','asc');
 		$res = $this->db->get();
 		if($res->num_rows()>0){
 			return $res;
