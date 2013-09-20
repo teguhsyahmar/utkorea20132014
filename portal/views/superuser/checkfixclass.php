@@ -1,0 +1,1 @@
+<h2>Masukan NIM dan Periode Tahun Ajaran, untuk memperbaiki kelas mahasiswa yang hilang/error</h2><form method="POST"><fieldset>	<label for="nim">NIM</label><input type="text" name="nim" />	<label for="periode">Periode</label><input type="text" name="periode" /></fieldset><button>Submit</button></form>

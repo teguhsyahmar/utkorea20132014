@@ -40,4 +40,26 @@ class utility_model extends CI_Model {
 		$this->db->where('id',$id);
 		return $this->db->get('permissions')->row()->menu;		
 	}
+	
+	function remove_from_Table($table,$where){		
+		$this->db->delete($table,$where);
+	}
+	
+	function insert_batch_Table($table,$data){
+		$this->db->insert_batch($table,$data);
+	}
+	
+	function check_valid_class($nim,$periode,$semester,$region){
+		
+		$this->db->select('a.id');
+		$this->db->from('assignment a');
+		$this->db->join('courses b','a.course_id = b.course_id');
+		$this->db->join('mahasiswa c','c.major = b.major');
+		$this->db->where('c.nim',$nim);
+		$this->db->where('b.semester',$semester);
+		$this->db->where('a.region',$region);
+		$this->db->where('a.time_period',$periode);
+		
+		return $this->db->get();
+	}
 }
